@@ -6,7 +6,7 @@
 /*   By: lbattest <lbattest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:34:17 by lbattest          #+#    #+#             */
-/*   Updated: 2022/03/08 17:43:31 by lbattest         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:41:41 by lbattest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ int	main(int argc, char **argv)
 		error(nbr_a, nbr_b);
 	parsing(argv, nbr_a, argc, nbr_b);
 	radix(nbr_a, nbr_b, argc);
-	// test(nbr_a, nbr_a[0].size);
 	quit(nbr_a, nbr_b);
 	return (0);
 }
