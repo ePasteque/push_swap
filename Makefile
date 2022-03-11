@@ -4,6 +4,10 @@ LIBFT =	libft/libft.a
 
 SRCS =	push_swap.c \
 		parsing.c \
+		fnct1.c \
+		fnct2.c \
+		fnct3.c \
+		radix.c \
 
 ODIR = build
 
@@ -15,7 +19,7 @@ HEADER =	push_swap.h \
 CC = gcc
 
 FLAGS = -Wall -Wextra -Werror
-FLAGS += -fsanitize=address -g3
+# FLAGS += -fsanitize=address -g3
 
 all: lib $(NAME)
 

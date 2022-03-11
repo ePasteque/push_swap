@@ -6,13 +6,55 @@
 /*   By: lbattest <lbattest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:08:52 by lbattest          #+#    #+#             */
-/*   Updated: 2022/02/24 15:00:57 by lbattest         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:01:18 by lbattest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	duplicate(t_nbr *nbr, int argc)
+static void	indexing(t_nbr *nbr, int argc)
+{
+	int	i;
+	int	j;
+	int	index;
+
+	i = -1;
+	while (argc - 1 > ++i)
+	{
+		index = 0;
+		j = -1;
+		while (argc - 1 > ++j)
+			if (nbr[i].nbr > nbr[j].nbr)
+				index++;
+		nbr[i].index = index;
+	}
+}
+
+int	is_sort(t_nbr *nbr_a, int argc, t_nbr *nbr_b, int time)
+{
+	int	i;
+	int	j;
+	int	r;
+
+	i = -1;
+	r = 0;
+	while (argc - 1 > ++i)
+	{
+		j = i;
+		while (argc - 1 > ++j)
+			if (nbr_a[i].nbr > nbr_a[j].nbr)
+				r++;
+	}
+	if (time == 0)
+	{
+		indexing(nbr_a, argc);
+		nbr_a[0].size = argc - 1;
+		nbr_b[0].size = 0;
+	}
+	return (r);
+}
+
+static void	duplicate(t_nbr *nbr, int argc, t_nbr *nbr_b)
 {
 	int	i;
 	int	j;
@@ -21,15 +63,15 @@ static void	duplicate(t_nbr *nbr, int argc)
 	while (argc - 1 > ++i)
 	{
 		if (nbr[i].nbr > 2147483647 || nbr[i].nbr < -2147483648)
-			error();
+			error(nbr, nbr_b);
 		j = i;
 		while (argc - 1 > ++j)
 			if (nbr[i].nbr == nbr[j].nbr)
-				error();
+				error(nbr, nbr_b);
 	}
 }
 
-void	parsing(char **argv, t_nbr *nbr, int argc)
+void	parsing(char **argv, t_nbr *nbr_a, int argc, t_nbr *nbr_b)
 {
 	int		i;
 	int		j;
@@ -41,15 +83,17 @@ void	parsing(char **argv, t_nbr *nbr, int argc)
 	while (argv[++i])
 	{
 		if (argv[i][0] == '\0')
-			error();
+			error(nbr_a, nbr_b);
 		j = -1;
 		space = 0;
-		while (argv[i][++j] && &nbr[tab])
+		while (argv[i][++j] && &nbr_a[tab])
 			if ((!ft_isdigit(argv[i][j]) && argv[i][j] != '-') ||
 				(argv[i][j] == '-' && !ft_isdigit(argv[i][j + 1])))
-				error();
-		nbr[tab].nbr = ft_atoi(argv[i]);
+				error(nbr_a, nbr_b);
+		nbr_a[tab].nbr = ft_atoi(argv[i]);
 		tab++;
 	}
-	duplicate(nbr, argc);
+	duplicate(nbr_a, argc, nbr_b);
+	if (is_sort(nbr_a, argc, nbr_b, 0) == 0)
+		quit(nbr_a, nbr_b);
 }
