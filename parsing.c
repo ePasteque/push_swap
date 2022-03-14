@@ -6,7 +6,7 @@
 /*   By: lbattest <lbattest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 14:08:52 by lbattest          #+#    #+#             */
-/*   Updated: 2022/03/08 17:01:18 by lbattest         ###   ########.fr       */
+/*   Updated: 2022/03/11 17:26:19 by lbattest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,23 @@ int	is_sort(t_nbr *nbr_a, int argc, t_nbr *nbr_b, int time)
 	int	i;
 	int	j;
 	int	r;
+	int	size;
 
-	i = -1;
-	r = 0;
-	while (argc - 1 > ++i)
-	{
-		j = i;
-		while (argc - 1 > ++j)
-			if (nbr_a[i].nbr > nbr_a[j].nbr)
-				r++;
-	}
 	if (time == 0)
 	{
 		indexing(nbr_a, argc);
 		nbr_a[0].size = argc - 1;
 		nbr_b[0].size = 0;
+	}
+	size = nbr_a[0].size;
+	i = -1;
+	r = 0;
+	while (size > ++i)
+	{
+		j = i;
+		while (size > ++j)
+			if (nbr_a[i].nbr > nbr_a[j].nbr)
+				r++;
 	}
 	return (r);
 }

@@ -6,40 +6,65 @@
 /*   By: lbattest <lbattest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 11:38:48 by lbattest          #+#    #+#             */
-/*   Updated: 2022/03/11 11:41:34 by lbattest         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:27:07 by lbattest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	is_3(t_nbr *nbr_a)
+static void	is_3(t_nbr *nbr_a, int argc, t_nbr *nbr_b)
 {
-	if (nbr_a[0].nbr > nbr_a[1].nbr)
-		sa(nbr_a);
-	if (nbr_a[1].nbr > nbr_a[2].nbr)
+	if (is_sort(nbr_a, argc, nbr_b, 1) == 0)
+		return ;
+	if (nbr_a[0].index < nbr_a[1].index && nbr_a[2].index > nbr_a[0].index)
 	{
+		sa(nbr_a);
 		ra(nbr_a);
+	}
+	else if (nbr_a[0].index > nbr_a[1].index && nbr_a[1].index > nbr_a[2].index)
+	{
 		sa(nbr_a);
 		rra(nbr_a);
 	}
-	if (nbr_a[0].nbr > nbr_a[1].nbr)
+	else if (nbr_a[0].index > nbr_a[1].index && nbr_a[0].index < nbr_a[2].index)
 		sa(nbr_a);
+	else if (nbr_a[0].index < nbr_a[1].index && nbr_a[2].index < nbr_a[0].index)
+		rra(nbr_a);
+	else if (nbr_a[0].index > nbr_a[2].index && nbr_a[1].index < nbr_a[2].index)
+		ra(nbr_a);
+}
+
+static int	find(t_nbr *nbr_a, int index)
+{
+	int	i;
+
+	i = -1;
+	while (nbr_a[++i].index != index)
+		;
+	return (i);
 }
 
 static void	is_5(t_nbr *nbr_a, t_nbr *nbr_b, int argc)
 {
-	pb(nbr_a, nbr_b);
-	pb(nbr_a, nbr_b);
-	is_3(nbr_a);
-	while (nbr_a[0].index < nbr_b[0].index)
-		ra(nbr_a);
+	int	j;
+	int	time;
+
+	time = -1;
+	while (++time < 2)
+	{
+		j = find(nbr_a, time);
+		while (nbr_a[0].index != time)
+		{
+			if (j >= 2)
+				rra(nbr_a);
+			else
+				ra(nbr_a);
+		}
+		pb(nbr_a, nbr_b);
+	}
+	is_3(nbr_a, argc, nbr_b);
 	pa(nbr_a, nbr_b);
-	while (nbr_a[1].index - 1 != nbr_b[0].index)
-		ra(nbr_a);
-	ra(nbr_a);
 	pa(nbr_a, nbr_b);
-	while (is_sort(nbr_a, argc, nbr_b, 1) != 0)
-		ra(nbr_a);
 }
 
 static void	specific_case(t_nbr *nbr_a, t_nbr *nbr_b, int argc)
@@ -50,7 +75,7 @@ static void	specific_case(t_nbr *nbr_a, t_nbr *nbr_b, int argc)
 		quit(nbr_a, nbr_b);
 	}
 	else if (argc == 4)
-		is_3(nbr_a);
+		is_3(nbr_a, argc, nbr_b);
 	else if (argc == 6)
 		is_5(nbr_a, nbr_b, argc);
 	quit(nbr_a, nbr_b);

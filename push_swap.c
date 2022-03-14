@@ -6,7 +6,7 @@
 /*   By: lbattest <lbattest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 10:34:17 by lbattest          #+#    #+#             */
-/*   Updated: 2022/03/11 11:41:41 by lbattest         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:43:49 by lbattest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,6 @@ void	quit(t_nbr *nbr_a, t_nbr *nbr_b)
 	exit(0);
 }
 
-void	test(t_nbr *nbr_a, int size)
-{
-	int	i;
-
-	i = -1;
-	printf("size = %d\n", nbr_a[0].size);
-	while (size > ++i)
-	{
-		printf("num = %ld 	index = %d\n", nbr_a[i].nbr, nbr_a[i].index);
-	}
-}
-
 int	main(int argc, char **argv)
 {
 	t_nbr	*nbr_a;
@@ -58,7 +46,7 @@ int	main(int argc, char **argv)
 	if (!nbr_a || !nbr_b)
 		error(nbr_a, nbr_b);
 	if (argc < 2)
-		error(nbr_a, nbr_b);
+		quit(nbr_a, nbr_b);
 	parsing(argv, nbr_a, argc, nbr_b);
 	radix(nbr_a, nbr_b, argc);
 	quit(nbr_a, nbr_b);
